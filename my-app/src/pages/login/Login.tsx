@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 
 import './Login.css';
 import styles from './Login.module.scss';
+import Clock from "../../components/clock/Clock";
 
 function Login() {
   return (
@@ -16,8 +17,12 @@ function Login() {
         <p>
           Faça seu login aqui!!
         </p>
-
       </Card.Body>
+
+        <p>
+            TESTE 2
+        </p>
+        <Clock></Clock>
     </Card>
   );
 }

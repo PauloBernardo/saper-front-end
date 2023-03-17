@@ -2,9 +2,15 @@ import React from 'react';
 
 import styles from './Button.module.scss';
 
-function Button({text}: {text: string}) {
+type Props = {
+  text: string,
+  onClick?: any
+}
+
+function Button({text, onClick}: Props) {
+
   return (
-    <button className={styles.button}>{text}</button>
+    <button onClick={onClick} className={styles.button}>{text}</button>
   );
 }
 
