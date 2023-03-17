@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saper - Atividade Pok&eacute;mon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <nav class="navbar bg-light">
+        <div class="container">
+            <div class="row w-100">
+
+                <!-- <div class="col-sm-12 col-md-3 text-center ">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://pokeapi.co/static/pokeapi_256.3fa72200.png" alt="Logo" height="48" class="d-inline-block align-text-top">
+                      </a>
+            
+                </div>
+
+                <div class="col-sm-12 col-md-9 d-print-none">
+                    <div class="input-group mt-1">
+                        <input type="text" class="form-control" placeholder="Digite aqui o nome do pok&eacute;mon" aria-label="Recipient's username" aria-describedby="button-addon2" id="search">
+                        <button class="btn btn-dark" type="button" id="button-addon2" onclick="donwloadPokemon()">Carregar ficha</button>
+                      </div>
+                </div> -->
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item "><a class="page-link" href="#">
+                        <span aria-hidden="true">&laquo;</span></a></li>
+                      <li class="page-item"><a class="page-link pk" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link pk" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link pk" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link pk" href="#">4</a></li>
+                      <li class="page-item"><a class="page-link pk" href="#">5</a></li>
+                      <li class="page-item"><a class="page-link" href="#">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a></li>
+                    </ul>
+                  </nav>
+            </div>
+          
+         
+          
+
+        </div>
+      </nav>
+
+
+    <div class="container bg-white">
+
+        <div class="row bg-light gx-5 rounded my-md-3 my-sm-0">
+            <div class="col  text-dark">
+                <h1 class="h2 text-center name">PIKACHU</h1>
+            </div>
+        </div>
+
+        <div class="row rounded g-0 gx-5">
+            <div class="col-sm-12 col-md-6 bg-light rounded shadow-sm">
+                <div class="text-center">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" class="mx-auto d-block w-50" alt="..." id="sprite">
+                  </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 bg-light d-flex align-items-center rounded shadow-sm">
+
+                <ul class="list-group list-group-flush w-100">
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        HP:
+                        <span>120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        Attack:
+                        <span>120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        Defense:
+                        <span>120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        Special Attack:
+                        <span>120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        Special Defense:
+                        <span>120</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                        Speed:
+                        <span>120</span>
+                    </li>
+                  </ul>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        qS = (selector) => document.querySelector(selector)
+
+        function setText(selector, text) {
+            let element = document.querySelector(selector);
+            element.innerHTML = text;
+        }
+
+        function setName({name}) {
+            if(!name) {
+                qS('.name').innerHTML = '';
+                return;
+            }
+
+            qS('.name').innerHTML =  name.toUpperCase();
+
+        }
+
+        function setSprite( {sprites: {front_default: sprite}} ) {
+            if(!sprite) {
+                qS('img').src = '';
+                qS('img').classList.add('placeholder');    
+            } else {
+                qS('img').classList.remove('placeholder');    
+                qS('img').src = sprite;
+            }
+            // TODO
+            
+        }
+
+        function setStats() {
+            // TODO com a sintaxe que desestrutura o objeto
+        }
+
+        function limparFicha() {
+            preencherFicha( {sprites: undefined, name: '', stats: undefined} );
+        }
+
+        function preencherFicha( pokemonJson ) {
+            setName(pokemonJson);
+            setSprite(pokemonJson);
+            setStats(pokemonJson);
+            
+        }
+
+
+        function preencherNav(json) {
+            
+            let itensNavegacao = document.querySelectorAll('.pk');
+
+            json.results.forEach(function({name}, idx) {
+                // muda o texto da navegaçao para o nome do pokemon
+                itensNavegacao[idx].innerHTML = name.toUpperCase();
+                itensNavegacao[idx].onclick = function() {
+                    let url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+            
+                    fetch(url).then((resp) => resp.json())
+                        .then( preencherFicha )
+                        .catch(function(err) {
+                            limparFicha();
+                            alert(err);
+                    });
+                }
+            });
+
+            var acoes = [json.previous, json.next];
+
+            document.querySelectorAll('.page-link:not(.pk)').forEach(function(botao, idx) {
+                botao.onclick = function() {
+                    console.log(acoes);
+                    fetch(acoes[idx])
+                        .then((resp) => resp.json())
+                        .then( preencherNav );
+                };
+            });
+    
+            
+
+        }
+
+        function carregarCincoPokemons(n) {
+            
+            let url = `https://pokeapi.co/api/v2/pokemon?limit=5&offset=${n}`;
+
+            fetch(url).then(
+                (resp) => resp.json())
+            .then( preencherNav )
+            .catch(function(err) {
+                alert(err);
+            });
+        }
+
+        
+        window.onload = function() {
+            carregarCincoPokemons(22); // começar no pikachu
+        }
+    </script>
+</body>
+</html>
