@@ -4,7 +4,7 @@ window.onload = function() {
     root.render(e(LikeButton));
 
 
-    const element = <h1 className={'text-white'}>Hello, world</h1>;
+    const element = <h1 onClick={() => console.log("Clicou no texto!")} className={'text-white'}>Hello, world</h1>;
     const rootContainer = document.querySelector('#root');
     const rootDOM = ReactDOM.createRoot(rootContainer);
     rootDOM.render(element);
