@@ -1,6 +1,9 @@
 import React from 'react';
+import {Badge} from "react-bootstrap";
 import logo from './logo.svg';
 import './App.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -20,7 +23,9 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-      <h1>Hello World!!</h1>
+      <h1>Hello World!! {' '} <Badge bg="secondary" as="button">
+        New
+      </Badge></h1>
   );
 }
 
