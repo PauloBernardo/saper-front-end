@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import NavBar from "./NavBar";
 
 import './ExemploPokemon.css';
@@ -13,94 +13,88 @@ type ExemploPokemonState = {
     previous?: string
 }
 
-class ExemploPokemon extends React.Component<any , ExemploPokemonState> {
-    constructor(props: any) {
-        super(props);
+function ExemploPokemon()  {
+    const [state, setState] = useState<ExemploPokemonState>({
+        pokemon: undefined,
+        pokemons: [],
+    });
 
-        this.state = {
-            pokemon: undefined,
-            pokemons: [],
-        }
+    const preencherFicha = ( pokemonJson: any ) => {
+        setState((state) => ({...state, pokemon: pokemonJson}));
     }
-    // Equivalente ao window.onload (neste contexto)
-    componentDidMount() {
-        this.carregarCincoPokemons(22); // começar no pikachu
 
-        let url = `https://pokeapi.co/api/v2/pokemon/pikachu`;
+    const limparFicha = () => {
+        preencherFicha( {sprites: undefined, name: '', stats: undefined} );
+    }
+
+
+    const onNavPokemonClick = (url: string) => {
         fetch(url).then((resp) => resp.json())
-            .then(this.preencherFicha)
+            .then(preencherFicha)
             .catch((err) => {
-                this.limparFicha();
+                limparFicha();
                 alert(err);
             });
     }
 
-    limparFicha = () => {
-        this.preencherFicha( {sprites: undefined, name: '', stats: undefined} );
-    }
-
-    preencherFicha = ( pokemonJson: any ) => {
-        console.log(pokemonJson);
-        this.setState({pokemon: pokemonJson});
-    }
-
-
-    onNavPokemonClick = (url: string) => {
-        fetch(url).then((resp) => resp.json())
-            .then(this.preencherFicha)
-            .catch((err) => {
-                this.limparFicha();
-                alert(err);
-            });
-    }
-
-    onNavClick = (url: string) => {
-        fetch(url)
-            .then((resp) => resp.json())
-            .then( this.preencherNav );
-    }
-
-    preencherNav = (json: any) => {
-        this.setState(
-            {
+    const preencherNav = (json: any) => {
+        setState((state) =>
+            ({
+                ...state,
                 pokemons: json.results,
                 previous: json.previous,
                 next: json.next
-            });
+            }));
     }
 
-    carregarCincoPokemons = (n: number) => {
+    const onNavClick = (url: string) => {
+        fetch(url)
+            .then((resp) => resp.json())
+            .then( preencherNav );
+    }
+
+    const carregarCincoPokemons = useCallback((n: number) => {
         let url = `https://pokeapi.co/api/v2/pokemon?limit=5&offset=${n}`;
 
         fetch(url).then(
             (resp) => resp.json())
-            .then( this.preencherNav )
+            .then( preencherNav )
             .catch(function(err) {
                 alert(err);
             });
-    }
+    }, []);
 
-    render() {
-        return (
-            <>
-                <NavBar
-                    pokemons={this.state.pokemons}
-                    onNavClick={this.onNavClick}
-                    onNavPokemonClick={this.onNavPokemonClick}
-                    previous={this.state.previous}
-                    next={this.state.next}
-                />
-                <div className="container bg-white">
-                    <Titulo name={this.state?.pokemon?.name} />
+    useEffect(() => {
+        carregarCincoPokemons(22); // começar no pikachu
 
-                    <div className="row rounded g-0 gx-5">
-                        <PokemonImagem url={this.state?.pokemon?.sprites.front_default}/>
-                        <ListaCaracteristicas stats={this.state.pokemon?.stats} />
-                    </div>
+        let url = `https://pokeapi.co/api/v2/pokemon/pikachu`;
+        fetch(url).then((resp) => resp.json())
+            .then(preencherFicha)
+            .catch((err) => {
+                limparFicha();
+                alert(err);
+            });
+    }, [])
+
+    return (
+        <>
+            <NavBar
+                pokemons={state.pokemons}
+                onNavClick={onNavClick}
+                onNavPokemonClick={onNavPokemonClick}
+                previous={state.previous}
+                next={state.next}
+            />
+            <div className="container bg-white">
+                <Titulo name={state?.pokemon?.name} />
+
+                <div className="row rounded g-0 gx-5">
+                    <PokemonImagem url={state?.pokemon?.sprites.front_default}/>
+                    <ListaCaracteristicas stats={state.pokemon?.stats} />
                 </div>
-            </>
-        );
-    }
+            </div>
+        </>
+    );
 }
 
 export default ExemploPokemon;

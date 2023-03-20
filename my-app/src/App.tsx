@@ -9,6 +9,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TabelaAlunosFiltro from "./pages/alunos/lista/tabelaAlunosFiltro/TabelaAlunosFiltro";
+// import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
         {
             profile: 'https://www.s2vistos.com.br/wp-content/uploads/2021/06/Agendamento-de-Visto-Americano-estudante-2021-min.jpg',
             name: 'Pedro Mathias',
-            enrollment: '1236',
+            enrollment: '1237',
             active: false,
             birthDate: '10/04/2000'
         }
