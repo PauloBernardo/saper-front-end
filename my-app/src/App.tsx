@@ -1,12 +1,14 @@
 import React from 'react';
-import {Badge} from "react-bootstrap";
-// import logo from './logo.svg';
+// import {Badge} from "react-bootstrap";
+// // import logo from './logo.svg';
+import {Welcome, WelcomeClass} from "./components/welcome/Welcome";
+import {Lista, ListaClass} from "./components/lista/Lista";
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
-import Button from "./components/forms/button/Button";
-import Login from "./pages/login/Login";
+// import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
+// import Button from "./components/forms/button/Button";
+// import Login from "./pages/login/Login";
 
 function App() {
   return (
@@ -27,14 +29,19 @@ function App() {
     //   </header>
     // </div>
       <>
-          <h1>Hello World!! {' '} <Badge bg="secondary" as="button">
-              New
-          </Badge></h1>
-          <Button text={'Teste'} />
-          <button>TESTE 2</button>
+          {/*<h1>Hello World!! {' '} <Badge bg="secondary" as="button">*/}
+          {/*    New*/}
+          {/*</Badge></h1>*/}
+          {/*<Button text={'Teste'} />*/}
+          {/*<button>TESTE 2</button>*/}
 
-          <Login />
-          <ExemploPokemon />
+          {/*<Login />*/}
+          {/*<ExemploPokemon />*/}
+          <Welcome />
+          <WelcomeClass />
+
+          <Lista />
+          <ListaClass />
       </>
   );
 }

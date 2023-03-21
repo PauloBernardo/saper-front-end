@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 class Clock extends React.Component<any, any>{
 
@@ -22,5 +22,25 @@ class Clock extends React.Component<any, any>{
     );
   }
 }
+
+function ClockFunction() {
+    const [date, setDate] = useState(new Date());
+
+    const updateDate = () => {
+        setDate(new Date());
+    }
+
+    return (
+        <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {date.toLocaleTimeString()}.</h2>
+            <button onClick={() => updateDate()}>Update!</button>
+        </div>
+    );
+}
+
+
+
+
 
 export default Clock;
