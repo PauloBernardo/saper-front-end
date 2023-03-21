@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 
-type Props = {
-    children?: React.ReactNode;
-    name: string;
+export function Welcome() {
+    return <h1>Bem vindo!</h1>
 }
 
-class Welcome extends React.Component<Props, any>{
-
+export class WelcomeClass extends React.Component<any, any> {
     render() {
-        return (<h1>Olá, {this.props.name}</h1>);
+        return <h1>Bem vindo!</h1>;
     }
 }
