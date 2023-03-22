@@ -1,15 +1,16 @@
 import React from 'react';
 // import {Badge} from "react-bootstrap";
 //
-// import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
+import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
 // import Button from "./components/forms/button/Button";
 // import Login from "./pages/login/Login";
 
 // import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TabelaAlunosFiltro from "./pages/alunos/lista/tabelaAlunosFiltro/TabelaAlunosFiltro";
-// import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
+// import TabelaAlunosFiltro from "./pages/alunos/lista/tabelaAlunosFiltro/TabelaAlunosFiltro";
+// import Clock from "./components/clock/Clock";
+import Login from "./pages/login/Login";
 
 function App() {
 
@@ -39,7 +40,7 @@ function App() {
         {
             profile: 'https://www.s2vistos.com.br/wp-content/uploads/2021/06/Agendamento-de-Visto-Americano-estudante-2021-min.jpg',
             name: 'Pedro Mathias',
-            enrollment: '1237',
+            enrollment: '1236',
             active: false,
             birthDate: '10/04/2000'
         }
@@ -68,10 +69,10 @@ function App() {
           {/*<Button text={'Teste'} />*/}
           {/*<button>TESTE 2</button>*/}
 
-          {/*<Login />*/}
+          <Login />
           {/*<ExemploPokemon />*/}
-
-          <TabelaAlunosFiltro alunos={JSONData} />
+          {/*<Clock />*/}
+          {/*<TabelaAlunosFiltro alunos={JSONData} />*/}
       </>
   );
 }

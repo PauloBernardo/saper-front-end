@@ -3,13 +3,13 @@ import {Aluno, TabelaAlunosProps} from "./types";
 import RowAluno from "./RowAluno";
 
 
-function TabelaAlunos ({alunos, mostrarApenasAtivo, textoFiltro, onUpdateAlunoSelecionado}: TabelaAlunosProps) {
+function TabelaAlunos(props: TabelaAlunosProps) {
+
     const filtraAlunos = useCallback((aluno: Aluno): boolean => {
-        return (aluno.active || !mostrarApenasAtivo) && aluno.name.toLowerCase().trim().indexOf(textoFiltro.toLowerCase().trim()) != -1;
-    }, [mostrarApenasAtivo, textoFiltro]);
+        return (aluno.active || !props.mostrarApenasAtivo) && aluno.name.toLowerCase().trim().indexOf(props.textoFiltro.toLowerCase().trim()) != -1;
+    }, [props.mostrarApenasAtivo, props.textoFiltro]);
 
-
-    const alunosFiltrados: Aluno[] = useMemo(() => alunos.filter(filtraAlunos), [mostrarApenasAtivo, alunos, textoFiltro]);
+    const alunosFiltrados: Aluno[] = useMemo(() => props.alunos.filter(filtraAlunos), [props.alunos, props.mostrarApenasAtivo, props.textoFiltro]);
 
     return (
         <table className="table table-hover">
@@ -29,7 +29,7 @@ function TabelaAlunos ({alunos, mostrarApenasAtivo, textoFiltro, onUpdateAlunoSe
             <tbody>
             {
                 alunosFiltrados.map((aluno) => {
-                    return <RowAluno key={aluno.enrollment} onUpdateAlunoSelecionado={onUpdateAlunoSelecionado} aluno={aluno} />
+                    return <RowAluno onUpdateAlunoSelecionado={props.onUpdateAlunoSelecionado} aluno={aluno} />
                 })
             }
             </tbody>

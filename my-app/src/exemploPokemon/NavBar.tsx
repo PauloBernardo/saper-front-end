@@ -9,6 +9,7 @@ type NavBarProps = {
 }
 
 function NavBar({previous, next, pokemons, onNavPokemonClick, onNavClick}: NavBarProps) {
+
     return (
         <nav className="navbar bg-light">
             <div className="container">

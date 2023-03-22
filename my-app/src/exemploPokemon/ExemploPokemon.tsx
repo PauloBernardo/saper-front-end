@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavBar from "./NavBar";
 
 import './ExemploPokemon.css';
@@ -13,28 +13,45 @@ type ExemploPokemonState = {
     previous?: string
 }
 
-function ExemploPokemon()  {
-    const [state, setState] = useState<ExemploPokemonState>({
-        pokemon: undefined,
-        pokemons: [],
-    });
+function ExemploPokemon() {
+    const [state, setState] = useState<ExemploPokemonState>({pokemon: undefined, pokemons: []});
 
-    const preencherFicha = ( pokemonJson: any ) => {
-        setState((state) => ({...state, pokemon: pokemonJson}));
-    }
+    useEffect(() => {
+        carregarCincoPokemons(22); // começar no pikachu
 
-    const limparFicha = () => {
-        preencherFicha( {sprites: undefined, name: '', stats: undefined} );
-    }
-
-
-    const onNavPokemonClick = (url: string) => {
-        fetch(url).then((resp) => resp.json())
+        let url = `https://pokeapi.co/api/v2/pokemon/pikachu`;
+        fetch(url)
+            .then((resp) => resp.json())
             .then(preencherFicha)
             .catch((err) => {
                 limparFicha();
                 alert(err);
             });
+    }, []);
+
+    const limparFicha = () => {
+        preencherFicha( {sprites: undefined, name: '', stats: undefined} );
+    }
+
+    const preencherFicha = ( pokemonJson: any ) => {
+        setState((state) => ({...state, pokemon: pokemonJson}));
+    }
+
+
+    const onNavPokemonClick = (url: string) => {
+        fetch(url)
+            .then((resp) => resp.json())
+            .then(preencherFicha)
+            .catch((err) => {
+                limparFicha();
+                alert(err);
+            });
+    }
+
+    const onNavClick = (url: string) => {
+        fetch(url)
+            .then((resp) => resp.json())
+            .then( preencherNav );
     }
 
     const preencherNav = (json: any) => {
@@ -47,34 +64,16 @@ function ExemploPokemon()  {
             }));
     }
 
-    const onNavClick = (url: string) => {
-        fetch(url)
-            .then((resp) => resp.json())
-            .then( preencherNav );
-    }
-
-    const carregarCincoPokemons = useCallback((n: number) => {
+    const carregarCincoPokemons = (n: number) => {
         let url = `https://pokeapi.co/api/v2/pokemon?limit=5&offset=${n}`;
 
-        fetch(url).then(
-            (resp) => resp.json())
+        fetch(url)
+            .then((resp) => resp.json())
             .then( preencherNav )
             .catch(function(err) {
                 alert(err);
             });
-    }, []);
-
-    useEffect(() => {
-        carregarCincoPokemons(22); // começar no pikachu
-
-        let url = `https://pokeapi.co/api/v2/pokemon/pikachu`;
-        fetch(url).then((resp) => resp.json())
-            .then(preencherFicha)
-            .catch((err) => {
-                limparFicha();
-                alert(err);
-            });
-    }, [])
+    }
 
     return (
         <>
