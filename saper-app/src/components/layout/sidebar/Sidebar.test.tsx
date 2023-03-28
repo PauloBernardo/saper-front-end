@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Home from './Home'
+import Sidebar from './Sidebar'
 
 test('renders login page', () => {
-    render(<Home />)
-    const linkElement = screen.getByText(/TeamsList/i)
+    render(<Sidebar links={[]} userLinks={[]} />)
+    const linkElement = screen.getByText(/Not Found/i)
     expect(linkElement).toBeInTheDocument()
 })

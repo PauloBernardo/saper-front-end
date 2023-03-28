@@ -1,0 +1,1 @@
+export { default as BoxesList } from './boxesList/BoxesList';

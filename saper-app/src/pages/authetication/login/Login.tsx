@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useAPI } from '../../../service/API'
+import {AuthContext} from "../../../store/authContext";
+import {useNavigate} from "react-router-dom";
 
 type LoginData = {
   email: string
@@ -9,6 +11,8 @@ type LoginData = {
 }
 
 function Login() {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const { t } = useTranslation()
   const [state, setState] = useState<LoginData>({ email: '', password: '' })
   const api = useAPI()
@@ -30,8 +34,9 @@ function Login() {
         },
       }
 
-      api.get('/my/client', {}, htmlConfig).then((res) => {
-          console.log(res);
+      api.get('my/client', {}, htmlConfig).then((res) => {
+          auth.updateUser ? auth.updateUser(res) : null;
+          navigate('/saper/home');
       })
     }
   }

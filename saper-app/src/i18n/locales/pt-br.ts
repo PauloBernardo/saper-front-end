@@ -3,6 +3,17 @@ export default {
     layout: {
       brand: 'SAPER',
       close: 'Sair',
+      sidebar: {
+        home: 'Home',
+        dashboard: 'Dashboard',
+        profile: 'Perfil',
+        client: 'Clientes',
+        student: 'Estudantes',
+        professor: 'Professores',
+        box: 'Salas',
+        team: 'Times',
+        logout: 'Sair'
+      }
     },
     auth: {
       banner: {

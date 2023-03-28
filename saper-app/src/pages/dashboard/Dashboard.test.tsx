@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Home from './Home'
+import Dashboard from './Dashboard'
 
 test('renders login page', () => {
-    render(<Home />)
-    const linkElement = screen.getByText(/TeamsList/i)
+    render(<Dashboard />)
+    const linkElement = screen.getByText(/Dashboard/i)
     expect(linkElement).toBeInTheDocument()
 })

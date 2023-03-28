@@ -1,0 +1,1 @@
+export { default as StudentsList } from './studentsList/StudentsList';
