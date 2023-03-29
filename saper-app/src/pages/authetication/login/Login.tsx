@@ -34,8 +34,8 @@ function Login() {
         },
       }
 
-      api.get('my/client', {}, htmlConfig).then((res) => {
-          auth.updateUser ? auth.updateUser(res) : null;
+      api.get('/my/client', {}, htmlConfig).then((res) => {
+          auth.updateUser ? auth.updateUser({...res, basicAuth}) : null;
           navigate('/saper/home');
       })
     }

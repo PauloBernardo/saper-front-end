@@ -1,10 +1,11 @@
 import { createContext } from 'react'
 
 export type User = {
-    name: string
-    login: string
-    student_id: number
-    roles: { authority: string }[]
+  name: string
+  login: string
+  student_id: number
+  basicAuth: string
+  roles: { authority: string }[]
 }
 
 export type AuthType = {

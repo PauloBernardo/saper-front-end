@@ -9,7 +9,7 @@ import {
   StudentsList,
   ProfessorsList,
   BoxesList,
-  TeamsList,
+  TeamsList, Profile, StudentsAdd,
 } from '../pages'
 import { BaseLayout } from '../components'
 import { AuthContext } from '../store/authContext'
@@ -39,12 +39,22 @@ const MainRouter = () => {
             </RequireAuth>
           }
         >
-          <Route path={'/saper/home'} element={<Home />} />
-          <Route path={'/saper/dashboard'} element={<Dashboard />} />
-          <Route path={'/saper/students'} element={<StudentsList />} />
-          <Route path={'/saper/professors'} element={<ProfessorsList />} />
-          <Route path={'/saper/boxes'} element={<BoxesList />} />
-          <Route path={'/saper/teams'} element={<TeamsList />} />
+          <Route path={'home'} element={<Home />} />
+          <Route path={'dashboard'} element={<Dashboard />} />
+          <Route path={'profile'} element={<Profile />} />
+          <Route path={'students'} element={<Outlet />}>
+            <Route path={''} element={<StudentsList />} />
+            <Route path={'add'} element={<StudentsAdd />} />
+          </Route>
+          <Route path={'professors'} element={<Outlet />} >
+            <Route path={''} element={<ProfessorsList />} />
+          </Route>
+          <Route path={'boxes'} element={<Outlet />} >
+            <Route path={''} element={<BoxesList />} />
+          </Route>
+          <Route path={'teams'} element={<Outlet />} >
+            <Route path={''} element={<TeamsList />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

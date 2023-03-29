@@ -28,6 +28,7 @@ export default {
       },
     },
     actions: {
+      title: 'Ações',
       add: 'Criar',
       back: 'Voltar',
       cancel: 'Cancelar',
@@ -60,6 +61,15 @@ export default {
         id: '#',
         registration: 'Matricula',
         paid: 'Pagou?',
+        add: {
+          title: 'Cadastrar Estudante',
+          fields: {
+            name: 'Nome',
+            login: 'Login',
+            password: 'Senha',
+            repeat_password: 'Repetir senha'
+          }
+        }
       },
       professor: {
         title: 'Professores',
@@ -81,6 +91,11 @@ export default {
         schedule: 'Cronograma',
         box: 'Sala',
       },
+      profile: {
+        ROLE_PROFESSOR: 'Professor',
+        ROLE_ADMIN: 'Administrador',
+        ROLE_USER: 'Estudante'
+      }
     },
   },
 }
