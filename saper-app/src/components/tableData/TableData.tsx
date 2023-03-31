@@ -76,7 +76,7 @@ function TableData({ url, fields, filters, actions }: TableDataProps) {
                 {actions.length > 0 &&
                   actions.map((a) => {
                     return (
-                      <div key={a.label}>
+                      <div key={a.label} className={'d-flex'}>
                         <button onClick={() => doAction(a.action, d)} className={'btn btn-sm'}>
                           {a.icon}
                         </button>

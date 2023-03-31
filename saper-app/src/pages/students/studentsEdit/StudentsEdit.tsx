@@ -1,38 +1,39 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import { useAPI } from '../../../service/API'
-import { useNavigate } from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 import { AuthContext } from '../../../store/authContext'
 
-import PhilipsImage from '../../../assets/img/philips.png'
-
-import styles from './StudentsAdd.module.scss'
+import styles from './StudentsEdit.module.scss'
 
 type StudentData = {
   file?: any
   name: string
-  login: string
   paid: boolean
-  password: string
-  repeated_password: string
 }
 
-function StudentsAdd() {
+function StudentsEdit() {
+  const {id} = useParams();
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [state, setState] = useState<StudentData>({
-    login: '',
-    password: '',
     paid: false,
     name: '',
-    repeated_password: '',
   })
   const auth = useContext(AuthContext)
   const api = useAPI()
   const imageInputRef = useRef<HTMLInputElement>(null)
-  const [imageProfile, setImageProfile] = useState<any>(PhilipsImage)
+  const [imageProfile, setImageProfile] = useState<any>()
+
+  useEffect(() => {
+    api.get('/students/' + id, {}).then((res) => {
+      console.log(res);
+      setState({name: res.name, paid: res.paid})
+      setImageProfile(process.env.REACT_APP_BACK_HOST + '/files/' + res?.profileImage.id)
+    })
+  }, [id]);
 
   const onUpdate = (
     e: React.ChangeEvent<any>,
@@ -44,14 +45,11 @@ function StudentsAdd() {
   function handleSubmit(e: any) {
     e.preventDefault()
 
-    if (state.login && state.password && state.password === state.repeated_password) {
+    if (state.name && state.paid) {
       const bodyFormData = new FormData()
       bodyFormData.append('file', state.file)
       bodyFormData.append('name', state.name)
       bodyFormData.append('paid', String(state.paid))
-      bodyFormData.append('login', state.login)
-      bodyFormData.append('password', state.password)
-      bodyFormData.append('repeated_password', state.repeated_password)
 
       const httpConfig = {
         headers: {
@@ -77,8 +75,6 @@ function StudentsAdd() {
     if (file) {
       setState((state) => ({ ...state, file }))
       reader.readAsDataURL(file)
-    } else {
-      setImageProfile(PhilipsImage)
     }
   }
 
@@ -86,7 +82,7 @@ function StudentsAdd() {
     <div className={'container'}>
       <Card className={'col-lg-4 col-12 m-auto'}>
         <Card.Header>
-          <Card.Title>{t('pages.student.add.title')}</Card.Title>
+          <Card.Title>{t('pages.student.edit.title')}</Card.Title>
         </Card.Header>
         <Card.Body>
           <Form onSubmit={handleSubmit}>
@@ -118,15 +114,6 @@ function StudentsAdd() {
                 onChange={(e) => onUpdate(e, 'name')}
               />
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicLogin'>
-              <Form.Label>{t('pages.student.add.fields.login')}</Form.Label>
-              <Form.Control
-                value={state.login}
-                type='email'
-                placeholder={t('pages.student.add.fields.login') as any}
-                onChange={(e) => onUpdate(e, 'login')}
-              />
-            </Form.Group>
             <Form.Check className='mb-3'>
               <Form.Check.Input
                 checked={state.paid}
@@ -134,24 +121,6 @@ function StudentsAdd() {
               />
               <Form.Check.Label>{t('pages.student.add.fields.paid')}</Form.Check.Label>
             </Form.Check>
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
-              <Form.Label>{t('pages.student.add.fields.password')}</Form.Label>
-              <Form.Control
-                value={state.password}
-                type='password'
-                placeholder='Password'
-                onChange={(e) => onUpdate(e, 'password')}
-              />
-            </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicRepeatedPassword'>
-              <Form.Label>{t('pages.student.add.fields.repeat_password')}</Form.Label>
-              <Form.Control
-                value={state.repeated_password}
-                type='password'
-                placeholder='Password'
-                onChange={(e) => onUpdate(e, 'repeated_password')}
-              />
-            </Form.Group>
             <Button variant='primary' type='submit'>
               {t('actions.add')}
             </Button>
@@ -162,4 +131,4 @@ function StudentsAdd() {
   )
 }
 
-export default StudentsAdd
+export default StudentsEdit

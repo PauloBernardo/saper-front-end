@@ -9,7 +9,7 @@ import {
   StudentsList,
   ProfessorsList,
   BoxesList,
-  TeamsList, Profile, StudentsAdd,
+  TeamsList, Profile, StudentsAdd, StudentsEdit,
 } from '../pages'
 import { BaseLayout } from '../components'
 import { AuthContext } from '../store/authContext'
@@ -45,6 +45,7 @@ const MainRouter = () => {
           <Route path={'students'} element={<Outlet />}>
             <Route path={''} element={<StudentsList />} />
             <Route path={'add'} element={<StudentsAdd />} />
+            <Route path={'edit/:id'} element={<StudentsEdit />} />
           </Route>
           <Route path={'professors'} element={<Outlet />} >
             <Route path={''} element={<ProfessorsList />} />

@@ -69,8 +69,12 @@ export default {
             name: 'Nome',
             login: 'Login',
             password: 'Senha',
+            paid: 'Pago',
             repeat_password: 'Repetir senha'
           }
+        },
+        edit: {
+          title: 'Editar Estudante'
         }
       },
       professor: {

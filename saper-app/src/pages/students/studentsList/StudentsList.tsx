@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TableData } from '../../../components'
-import { FaTrash } from 'react-icons/fa'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import { useAPI } from '../../../service/API'
 
 import styles from './StudentsList.module.scss'
@@ -19,6 +19,11 @@ function StudentsList() {
     } catch (e) {
       return false
     }
+  }
+
+  async function editItem(data: any) {
+    navigate('edit/' + data.id)
+    return false
   }
 
   return (
@@ -47,6 +52,11 @@ function StudentsList() {
             label: 'actions.delete',
             icon: <FaTrash />,
             action: deleteItem,
+          },
+          {
+            label: 'actions.edit',
+            icon: <FaEdit />,
+            action: editItem,
           },
         ]}
       />
