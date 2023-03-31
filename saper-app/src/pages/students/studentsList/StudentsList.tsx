@@ -25,7 +25,10 @@ function StudentsList() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{t('pages.student.title')}</h1>
-        <button onClick={() => navigate('/saper/students/add')} className={'btn btn-sm btn-primary'}>
+        <button
+          onClick={() => navigate('/saper/students/add')}
+          className={'btn btn-sm btn-primary'}
+        >
           {t('actions.add')}
         </button>
       </div>
@@ -33,7 +36,10 @@ function StudentsList() {
         url={'/students'}
         fields={[
           { label: 'pages.student.id', type: 'text', accessor: 'id' },
+          { label: 'pages.student.name', type: 'text', accessor: 'name' },
+          { label: 'pages.student.login', type: 'text', accessor: 'login' },
           { label: 'pages.student.registration', type: 'text', accessor: 'registration' },
+          { label: 'pages.student.paid', type: 'boolean', accessor: 'paid' },
         ]}
         filters={{}}
         actions={[

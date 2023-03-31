@@ -16,7 +16,7 @@ function Profile() {
                     <div className="card p-3 py-4">
 
                         <div className="text-center">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" className="rounded-circle" alt={'profileImg'} />
+                            <img src={process.env.REACT_APP_BACK_HOST + '/files/' + auth.user?.profileImage.id} width="100" className="rounded-circle" alt={'profileImg'} />
                         </div>
 
                         <div className="text-center mt-3">

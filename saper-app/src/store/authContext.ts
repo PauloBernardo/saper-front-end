@@ -4,7 +4,13 @@ export type User = {
   name: string
   login: string
   student_id: number
-  basicAuth: string
+  basicAuth: string,
+  "profileImage": {
+    "id": number,
+    "name": string,
+    "type": string,
+    "filePath": string
+  }
   roles: { authority: string }[]
 }
 

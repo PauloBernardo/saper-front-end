@@ -60,6 +60,8 @@ export default {
         title: 'Estudantes',
         id: '#',
         registration: 'Matricula',
+        name: 'Nome',
+        login: 'Login',
         paid: 'Pagou?',
         add: {
           title: 'Cadastrar Estudante',

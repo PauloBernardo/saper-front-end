@@ -46,8 +46,7 @@ function Sidebar({ links, userLinks }: MenuData) {
           return (
             <li key={link.path} className='nav-item'>
               <Link to={link.path} className='nav-link text-white' aria-current='page'>
-                {link.icon}{' '}
-                {t(link.text)}
+                {link.icon} {t(link.text)}
               </Link>
             </li>
           )
@@ -62,7 +61,7 @@ function Sidebar({ links, userLinks }: MenuData) {
           aria-expanded='false'
         >
           <img
-            src='https://github.com/mdo.png'
+            src={process.env.REACT_APP_BACK_HOST + '/files/' + auth.user?.profileImage.id}
             alt=''
             width='32'
             height='32'
@@ -73,11 +72,11 @@ function Sidebar({ links, userLinks }: MenuData) {
         <ul className='dropdown-menu dropdown-menu-dark text-small shadow'>
           {userLinks.map((link) => {
             return (
-                <li key={link.path} className='nav-item'>
-                  <Link to={link.path} className='dropdown-item' aria-current='page'>
-                    {t(link.text)}
-                  </Link>
-                </li>
+              <li key={link.path} className='nav-item'>
+                <Link to={link.path} className='dropdown-item' aria-current='page'>
+                  {t(link.text)}
+                </Link>
+              </li>
             )
           })}
           <li>
@@ -85,7 +84,7 @@ function Sidebar({ links, userLinks }: MenuData) {
           </li>
           <li>
             <div style={{ cursor: 'pointer' }} onClick={() => signOut()} className='dropdown-item'>
-                {t('layout.sidebar.logout')}
+              {t('layout.sidebar.logout')}
             </div>
           </li>
         </ul>
