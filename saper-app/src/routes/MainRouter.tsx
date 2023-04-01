@@ -9,10 +9,11 @@ import {
   StudentsList,
   ProfessorsList,
   BoxesList,
-  TeamsList,
+  TeamsList, StudentsAdd,
 } from '../pages'
 import { BaseLayout } from '../components'
 import { AuthContext } from '../store/authContext'
+import StudentsEdit from "../pages/students/studentsEdit/StudentsEdit";
 
 const RequireAuth = ({ children }: { children: any }) => {
   const auth = useContext(AuthContext)
@@ -31,7 +32,7 @@ const MainRouter = () => {
         <Route path='/' element={<PublicPage />} />
         <Route path='/login' element={<Login />} />
         <Route
-          path='/saper'
+          path='saper'
           errorElement={<NotFound />}
           element={
             <RequireAuth>
@@ -39,12 +40,16 @@ const MainRouter = () => {
             </RequireAuth>
           }
         >
-          <Route path={'/saper/home'} element={<Home />} />
-          <Route path={'/saper/dashboard'} element={<Dashboard />} />
-          <Route path={'/saper/students'} element={<StudentsList />} />
-          <Route path={'/saper/professors'} element={<ProfessorsList />} />
-          <Route path={'/saper/boxes'} element={<BoxesList />} />
-          <Route path={'/saper/teams'} element={<TeamsList />} />
+          <Route path={'home'} element={<Home />} />
+          <Route path={'dashboard'} element={<Dashboard />} />
+          <Route path={'students'} element={<Outlet />}>
+            <Route path={''} element={<StudentsList />} />
+            <Route path={'add'} element={<StudentsAdd />} />
+            <Route path={'edit/:id'} element={<StudentsEdit />} />
+          </Route>
+          <Route path={'professors'} element={<ProfessorsList />} />
+          <Route path={'boxes'} element={<BoxesList />} />
+          <Route path={'teams'} element={<TeamsList />} />
         </Route>
       </Route>
     </Routes>

@@ -1,15 +1,22 @@
 import Axios, { AxiosError } from 'axios'
 import Alertify from "../components/alertify/Alertify";
+import {useContext} from "react";
+import {AuthContext} from "../store/authContext";
 
 export const useAPI = () => {
+    const auth = useContext(AuthContext);
     const BACK_HOST: string | undefined = process.env.REACT_APP_BACK_HOST
 
     const getHttpConfig = (): any => {
-        return {
+        const htmlConfig = {
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                Authorization: auth.user?.basicAuth,
             },
         }
+
+        return htmlConfig;
     }
 
     const handleHttpError = (error: AxiosError, action: {func: any, args: any}) => {

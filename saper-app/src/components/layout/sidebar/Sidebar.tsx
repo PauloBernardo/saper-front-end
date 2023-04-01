@@ -62,7 +62,7 @@ function Sidebar({ links, userLinks }: MenuData) {
           aria-expanded='false'
         >
           <img
-            src='https://github.com/mdo.png'
+            src={process.env.REACT_APP_BACK_HOST + '/files/' + auth.user?.profileImage.id}
             alt=''
             width='32'
             height='32'
