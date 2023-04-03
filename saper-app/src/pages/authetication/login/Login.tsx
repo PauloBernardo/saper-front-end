@@ -1,9 +1,10 @@
 import React, {useContext, useState} from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next'
-import { useAPI } from '../../../service/API'
-import {AuthContext} from "../../../store/authContext";
 import {useNavigate} from "react-router-dom";
+import { useTranslation } from 'react-i18next'
+
+import { useAPI } from 'service/API'
+import {AuthContext} from "store/authContext";
 
 type LoginData = {
   email: string
@@ -36,7 +37,7 @@ function Login() {
 
       api.get('/my/client', {}, htmlConfig).then((res) => {
           auth.updateUser ? auth.updateUser({...res, basicAuth}) : null;
-          navigate('/saper/home');
+          navigate('/home');
       })
     }
   }

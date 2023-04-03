@@ -1,9 +1,5 @@
 import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-
-import styles from './BaseLayout.module.scss'
-import { AuthContext } from '../../../store/authContext'
-import Sidebar, { MenuData } from '../sidebar/Sidebar'
 import {
   FaBoxes,
   FaChalkboardTeacher,
@@ -13,6 +9,11 @@ import {
   FaPeopleCarry,
 } from 'react-icons/fa'
 
+import { AuthContext } from 'store/authContext'
+import Sidebar, { MenuData } from '../sidebar/Sidebar'
+
+import styles from './BaseLayout.module.scss'
+
 function BaseLayout() {
   const auth = useContext(AuthContext)
 
@@ -21,39 +22,39 @@ function BaseLayout() {
       links: [
         {
           text: 'layout.sidebar.home',
-          path: '/saper/home',
+          path: 'home',
           icon: <FaHouseUser />,
         },
         {
           text: 'layout.sidebar.dashboard',
-          path: '/saper/dashboard',
+          path: 'dashboard',
           icon: <FaChartBar />,
         },
         {
           text: 'layout.sidebar.student',
-          path: '/saper/students',
+          path: 'students',
           icon: <FaGraduationCap />,
         },
         {
           text: 'layout.sidebar.professor',
-          path: '/saper/professors',
+          path: 'professors',
           icon: <FaChalkboardTeacher />,
         },
         {
           text: 'layout.sidebar.box',
-          path: '/saper/boxes',
+          path: 'boxes',
           icon: <FaBoxes />,
         },
         {
           text: 'layout.sidebar.team',
-          path: '/saper/teams',
+          path: 'teams',
           icon: <FaPeopleCarry />,
         },
       ],
       userLinks: [
         {
           text: 'layout.sidebar.profile',
-          path: '/saper/profile',
+          path: 'profile',
         },
       ],
     },
@@ -61,35 +62,35 @@ function BaseLayout() {
       links: [
         {
           text: 'layout.sidebar.home',
-          path: '/saper/home',
+          path: 'home',
           icon: <FaHouseUser />,
         },
         {
           text: 'layout.sidebar.dashboard',
-          path: '/saper/dashboard',
+          path: 'dashboard',
           icon: <FaChartBar />,
         },
 
         {
           text: 'layout.sidebar.student',
-          path: '/saper/students',
+          path: 'students',
           icon: <FaGraduationCap />,
         },
         {
           text: 'layout.sidebar.box',
-          path: '/saper/boxes',
+          path: 'boxes',
           icon: <FaBoxes />,
         },
         {
           text: 'layout.sidebar.team',
-          path: '/saper/teams',
+          path: 'teams',
           icon: <FaPeopleCarry />,
         },
       ],
       userLinks: [
         {
           text: 'layout.sidebar.profile',
-          path: '/saper/profile',
+          path: 'profile',
         },
       ],
     },
@@ -97,24 +98,24 @@ function BaseLayout() {
       links: [
         {
           text: 'layout.sidebar.home',
-          path: '/saper/home',
+          path: 'home',
           icon: <FaHouseUser />,
         },
         {
           text: 'layout.sidebar.dashboard',
-          path: '/saper/dashboard',
+          path: 'dashboard',
           icon: <FaChartBar />,
         },
         {
           text: 'layout.sidebar.team',
-          path: '/saper/teams',
+          path: 'teams',
           icon: <FaPeopleCarry />,
         },
       ],
       userLinks: [
         {
           text: 'layout.sidebar.profile',
-          path: '/saper/profile',
+          path: 'profile',
         },
       ],
     },

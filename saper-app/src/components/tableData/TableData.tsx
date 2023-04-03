@@ -1,6 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useAPI } from '../../service/API'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { useAPI } from 'service/API'
+
+export type TableDataInstance = {
+  reload(): void;
+}
 
 type Field = {
   accessor: string
@@ -19,9 +24,10 @@ type TableDataProps = {
   fields: Field[]
   filters: any
   actions: Action[]
+  reference?: React.MutableRefObject<TableDataInstance | undefined>;
 }
 
-function TableData({ url, fields, filters, actions }: TableDataProps) {
+function TableData({ url, fields, filters, actions, reference }: TableDataProps) {
   const { t } = useTranslation()
   const [data, setData] = useState<any[]>([])
   const api = useAPI()
@@ -35,6 +41,12 @@ function TableData({ url, fields, filters, actions }: TableDataProps) {
   useEffect(() => {
     reload()
   }, [url, filters, reload])
+
+  const instance = useRef<TableDataInstance>({ reload });
+
+  if (reference) {
+    reference.current = instance.current;
+  }
 
   const getFieldValue = (field: Field, data: any): any => {
     switch (field.type) {
@@ -73,16 +85,22 @@ function TableData({ url, fields, filters, actions }: TableDataProps) {
                 {fields.map((f) => {
                   return <td key={f.accessor}>{getFieldValue(f, d)}</td>
                 })}
-                {actions.length > 0 &&
-                  actions.map((a) => {
-                    return (
-                      <div key={a.label} className={'d-flex'}>
-                        <button onClick={() => doAction(a.action, d)} className={'btn btn-sm'}>
-                          {a.icon}
-                        </button>
-                      </div>
-                    )
-                  })}
+                <td>
+                  <div className={'d-flex flex-row'}>
+                    {actions.length > 0 &&
+                        actions.map((a) => {
+                          return (
+                              <button
+                                  key={a.label}
+                                  onClick={() => doAction(a.action, d)}
+                                  className={'btn btn-sm'}
+                              >
+                                {a.icon}
+                              </button>
+                          )
+                        })}
+                  </div>
+                </td>
               </tr>
             )
           })}

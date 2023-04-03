@@ -1,12 +1,12 @@
 import React, { useContext, useRef, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { useAPI } from '../../../service/API'
+import { useAPI } from 'service/API'
 import { useNavigate } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
-import { AuthContext } from '../../../store/authContext'
+import { AuthContext } from 'store/authContext'
 
-import PhilipsImage from '../../../assets/img/philips.png'
+import PhilipsImage from 'assets/img/philips.png'
 
 import styles from './StudentsAdd.module.scss'
 
@@ -61,7 +61,7 @@ function StudentsAdd() {
       }
 
       api.post('/students', state, httpConfig).then(() => {
-        navigate('/saper/students')
+        navigate('/students')
       })
     }
   }

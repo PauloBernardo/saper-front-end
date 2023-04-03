@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import { useAPI } from '../../../service/API'
+import { useAPI } from 'service/API'
 import {useNavigate, useParams} from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
-import { AuthContext } from '../../../store/authContext'
+import { AuthContext } from 'store/authContext'
 
 import styles from './StudentsEdit.module.scss'
 
@@ -45,9 +45,9 @@ function StudentsEdit() {
   function handleSubmit(e: any) {
     e.preventDefault()
 
-    if (state.name && state.paid) {
+    if (state.name) {
       const bodyFormData = new FormData()
-      bodyFormData.append('file', state.file)
+      if (state.file) bodyFormData.append('file', state.file);
       bodyFormData.append('name', state.name)
       bodyFormData.append('paid', String(state.paid))
 
@@ -58,8 +58,8 @@ function StudentsEdit() {
         },
       }
 
-      api.post('/students', state, httpConfig).then(() => {
-        navigate('/saper/students')
+      api.put('/students/' + id, state, httpConfig).then(() => {
+        navigate('/students')
       })
     }
   }
@@ -122,7 +122,7 @@ function StudentsEdit() {
               <Form.Check.Label>{t('pages.student.add.fields.paid')}</Form.Check.Label>
             </Form.Check>
             <Button variant='primary' type='submit'>
-              {t('actions.add')}
+              {t('actions.edit')}
             </Button>
           </Form>
         </Card.Body>

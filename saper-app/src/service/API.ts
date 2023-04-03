@@ -1,7 +1,8 @@
 import Axios, { AxiosError } from 'axios'
-import Alertify from '../components/alertify/Alertify'
 import { useContext, useMemo } from 'react'
-import { AuthContext } from '../store/authContext'
+
+import Alertify from 'components/alertify/Alertify'
+import { AuthContext } from 'store/authContext'
 
 export const useAPI = () => {
   const auth = useContext(AuthContext)
@@ -23,7 +24,6 @@ export const useAPI = () => {
 
   const get = async (url: string, params: any, httpConfig?: any): Promise<any> => {
     try {
-      console.log(defaultHttpConfig)
       const response = await Axios.get(BACK_HOST + url, {
         ...(httpConfig ? httpConfig : defaultHttpConfig),
         params,

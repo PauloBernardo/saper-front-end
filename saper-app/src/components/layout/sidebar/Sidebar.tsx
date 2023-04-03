@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import styles from './Sidebar.module.scss'
+import { AuthContext } from 'store/authContext'
 
-import brandImage from '../../../assets/img/brand.png'
-import { AuthContext } from '../../../store/authContext'
+import styles from './Sidebar.module.scss'
+import brandImage from 'assets/img/brand.png'
 
 type LinkData = {
   text: string
@@ -24,22 +24,24 @@ export type MenuData = {
 }
 
 function Sidebar({ links, userLinks }: MenuData) {
+  const navigate = useNavigate()
   const auth = useContext(AuthContext)
   const { t } = useTranslation()
 
   function signOut() {
     if (auth.updateUser) auth.updateUser(undefined)
+    navigate('/')
   }
 
   return (
     <div className={'d-flex flex-column flex-shrink-0 p-3 text-bg-dark ' + styles.sidebar}>
-      <a
-        href='/'
+      <Link
+        to='/home'
         className='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
       >
         <img className={styles.brand} src={brandImage} alt={'brand'} />
         <span className='fs-4'>{t('layout.brand')}</span>
-      </a>
+      </Link>
       <hr />
       <ul className='nav nav-pills flex-column mb-auto'>
         {links.map((link) => {

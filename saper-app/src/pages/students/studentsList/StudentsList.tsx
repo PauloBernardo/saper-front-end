@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TableData } from '../../../components'
+import { useNavigate } from 'react-router-dom'
+import { Button, Modal } from 'react-bootstrap'
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import { useAPI } from '../../../service/API'
+
+import { TableData } from 'components'
+import { useAPI } from 'service/API'
+import { TableDataInstance } from 'components/tableData/TableData'
 
 import styles from './StudentsList.module.scss'
-import { useNavigate } from 'react-router-dom'
 
 function StudentsList() {
+  const [itemSelected, setItemSelected] = useState<any>()
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false)
   const navigate = useNavigate()
   const { t } = useTranslation()
   const api = useAPI()
+  const table = useRef<TableDataInstance>()
 
-  const deleteItem = async (data: any): Promise<boolean> => {
-    try {
-      await api.delete('students/' + data.id)
-      return true
-    } catch (e) {
-      return false
-    }
+  const handleDeleteItem = async () => {
+    await api.delete('/students/' + itemSelected.id)
+    table.current?.reload()
+    handleClose()
+  }
+
+  const deleteItem = async (data: any) => {
+    setItemSelected(data)
+    setShowDeleteModal(true)
+    return false
   }
 
   async function editItem(data: any) {
@@ -26,18 +35,20 @@ function StudentsList() {
     return false
   }
 
+  function handleClose() {
+    setShowDeleteModal(false)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{t('pages.student.title')}</h1>
-        <button
-          onClick={() => navigate('/saper/students/add')}
-          className={'btn btn-sm btn-primary'}
-        >
+        <button onClick={() => navigate('add')} className={'btn btn-sm btn-primary'}>
           {t('actions.add')}
         </button>
       </div>
       <TableData
+        reference={table}
         url={'/students'}
         fields={[
           { label: 'pages.student.id', type: 'text', accessor: 'id' },
@@ -60,6 +71,20 @@ function StudentsList() {
           },
         ]}
       />
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('dialogs.remove.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{t('dialogs.remove.message')}</Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            {t('actions.cancel')}
+          </Button>
+          <Button variant='primary' onClick={handleDeleteItem}>
+            {t('actions.delete')}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }
