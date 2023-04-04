@@ -4,9 +4,9 @@ import {Badge} from "react-bootstrap";
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
-import Button from "./components/forms/button/Button";
-import Login from "./pages/login/Login";
+// import ExemploPokemon from "./exemploPokemon/ExemploPokemon";
+// import Button from "./components/forms/button/Button";
+// import Login from "./pages/login/Login";
 
 function App() {
   return (
@@ -30,11 +30,11 @@ function App() {
           <h1>Hello World!! {' '} <Badge bg="secondary" as="button">
               New
           </Badge></h1>
-          <Button text={'Teste'} />
-          <button>TESTE 2</button>
+          {/*<Button text={'Teste'} />*/}
+          {/*<button>TESTE 2</button>*/}
 
-          <Login />
-          <ExemploPokemon />
+          {/*<Login />*/}
+          {/*<ExemploPokemon />*/}
       </>
   );
 }
