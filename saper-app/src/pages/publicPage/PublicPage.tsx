@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import styles from './PublicPage.module.scss'
 
-import Paulo from '../../assets/img/paulo.png'
-import Saulo from '../../assets/img/saulo.png'
-import Thalyson from '../../assets/img/thalyson.png'
-import Saper from '../../assets/img/saper.png'
-import brandImage from '../../assets/img/brand.png'
-import Brand from '../../assets/img/philips.png'
-import PostInscricao from '../../assets/img/inscrito.png'
-import Student from '../../assets/img/student-ifce-saper-2.png'
+import Paulo from 'assets/img/paulo.png'
+import Saulo from 'assets/img/saulo.png'
+import Thalyson from 'assets/img/thalyson.png'
+import Saper from 'assets/img/saper.png'
+import brandImage from 'assets/img/brand.png'
+import Brand from 'assets/img/philips.png'
+import PostInscricao from 'assets/img/inscrito.png'
+import Student from 'assets/img/student-ifce-saper-2.png'
 
 function PublicPage() {
   const { t } = useTranslation()
@@ -21,9 +21,9 @@ function PublicPage() {
       <header data-bs-theme='dark'>
         <nav className='navbar navbar-expand-md navbar-dark fixed-top bg-dark'>
           <div className='container-fluid'>
-            <a className='navbar-brand' href='#'>
+            <Link to={'/'} className='navbar-brand'>
               <img className={styles.brand} src={brandImage} alt={'brand'} />
-            </a>
+            </Link>
             <button
               className='navbar-toggler'
               type='button'

@@ -47,6 +47,7 @@ function StudentsList() {
           {t('actions.add')}
         </button>
       </div>
+
       <TableData
         reference={table}
         url={'/students'}
@@ -71,6 +72,7 @@ function StudentsList() {
           },
         ]}
       />
+
       <Modal show={showDeleteModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{t('dialogs.remove.title')}</Modal.Title>

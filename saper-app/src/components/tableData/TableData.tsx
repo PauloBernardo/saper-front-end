@@ -1,10 +1,12 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAPI } from 'service/API'
+import TableDataPagination from './TableDataPagination/TableDataPagination'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 export type TableDataInstance = {
-  reload(): void;
+  reload(): void
 }
 
 type Field = {
@@ -24,17 +26,20 @@ type TableDataProps = {
   fields: Field[]
   filters: any
   actions: Action[]
-  reference?: React.MutableRefObject<TableDataInstance | undefined>;
+  reference?: React.MutableRefObject<TableDataInstance | undefined>
 }
 
 function TableData({ url, fields, filters, actions, reference }: TableDataProps) {
   const { t } = useTranslation()
+  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [numberOfPages, setNumberOfPages] = useState<number>(0)
   const [data, setData] = useState<any[]>([])
   const api = useAPI()
 
   const reload = useCallback(() => {
     api.get(url, filters).then((res) => {
       setData(res)
+      setNumberOfPages(Math.floor(res.length / 10))
     })
   }, [url, filters])
 
@@ -42,10 +47,10 @@ function TableData({ url, fields, filters, actions, reference }: TableDataProps)
     reload()
   }, [url, filters, reload])
 
-  const instance = useRef<TableDataInstance>({ reload });
+  const instance = useRef<TableDataInstance>({ reload })
 
   if (reference) {
-    reference.current = instance.current;
+    reference.current = instance.current
   }
 
   const getFieldValue = (field: Field, data: any): any => {
@@ -63,12 +68,21 @@ function TableData({ url, fields, filters, actions, reference }: TableDataProps)
     }
   }
 
+  const handleChangePage = (page: number) => {
+    setCurrentPage(page)
+  }
+
   const doAction = (action: (data: any) => Promise<boolean>, d: any) => {
     action(d).then((res) => (res ? reload() : null))
   }
 
   return (
-    <div className={'d-flex'}>
+    <div className={'d-flex flex-column'}>
+      <TableDataPagination
+        currentPage={currentPage}
+        numberOfPages={numberOfPages}
+        changePage={handleChangePage}
+      />
       <table className={'table table-bordered table-flex'}>
         <thead>
           <tr>
@@ -79,7 +93,7 @@ function TableData({ url, fields, filters, actions, reference }: TableDataProps)
           </tr>
         </thead>
         <thead>
-          {data.map((d, i) => {
+          {data.slice(currentPage * 10, (currentPage + 1) * 10).map((d, i) => {
             return (
               <tr key={i}>
                 {fields.map((f) => {
@@ -88,17 +102,25 @@ function TableData({ url, fields, filters, actions, reference }: TableDataProps)
                 <td>
                   <div className={'d-flex flex-row'}>
                     {actions.length > 0 &&
-                        actions.map((a) => {
-                          return (
-                              <button
-                                  key={a.label}
-                                  onClick={() => doAction(a.action, d)}
-                                  className={'btn btn-sm'}
-                              >
-                                {a.icon}
-                              </button>
-                          )
-                        })}
+                      actions.map((a) => {
+                        return (
+                          <OverlayTrigger
+                            key={a.label}
+                            placement={'top'}
+                            overlay={<Tooltip id={`tooltip-top}`}>{t(a.label)}</Tooltip>}
+                          >
+                            <button
+                              onClick={() => doAction(a.action, d)}
+                              className={'btn btn-sm'}
+                              data-bs-toggle='tooltip'
+                              data-bs-placement='top'
+                              data-bs-title={a.label}
+                            >
+                              {a.icon}
+                            </button>
+                          </OverlayTrigger>
+                        )
+                      })}
                   </div>
                 </td>
               </tr>

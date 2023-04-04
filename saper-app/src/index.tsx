@@ -5,8 +5,10 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import reportWebVitals from './reportWebVitals'
 
+import '@popperjs/core/dist/esm/index'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
+
 import 'alertifyjs/build/alertify.min'
 import 'alertifyjs/build/css/alertify.min.css'
 
