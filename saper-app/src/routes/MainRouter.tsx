@@ -14,6 +14,8 @@ import {
   Profile,
   StudentsAdd,
   StudentsEdit,
+  BoxesAdd,
+  BoxesEdit,
 } from 'pages'
 import { BaseLayout } from 'components'
 import { AuthContext } from 'store/authContext'
@@ -61,6 +63,8 @@ const MainRouter = () => {
             </Route>
             <Route path={'boxes'} element={<Outlet />}>
               <Route path={''} element={<BoxesList />} />
+              <Route path={'add'} element={<BoxesAdd />} />
+              <Route path={'edit/:id'} element={<BoxesEdit />} />
             </Route>
             <Route path={'teams'} element={<Outlet />}>
               <Route path={''} element={<TeamsList />} />

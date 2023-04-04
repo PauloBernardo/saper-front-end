@@ -119,8 +119,19 @@ export default {
         id: '#',
         title: 'Salas',
         name: 'Nome',
+        latitude: 'Latitude',
+        longitude: 'Longitude',
         capacity: 'Capacidade',
         created_by: 'Criado por',
+        add: {
+          title: 'Cadastrar Sala',
+          fields: {
+            name: 'Nome',
+            latitude: 'Latitude',
+            longitude: 'Longitude',
+            capacity: 'Capacidade',
+          }
+        },
       },
       team: {
         id: '#',

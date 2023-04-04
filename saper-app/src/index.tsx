@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals'
 import '@popperjs/core/dist/esm/index'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
+import 'leaflet/dist/leaflet.css';
 
 import 'alertifyjs/build/alertify.min'
 import 'alertifyjs/build/css/alertify.min.css'
