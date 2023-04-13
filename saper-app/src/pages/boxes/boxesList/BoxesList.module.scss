@@ -1,0 +1,29 @@
+.cardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  .card {
+    flex: 1;
+    min-width: 400px;;
+    max-width: 400px;
+    margin: 10px;
+  }
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  padding: 10px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

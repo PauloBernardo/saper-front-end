@@ -1,0 +1,17 @@
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+
+  .plusButton {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% + 15px);
+    background-color: white;
+    border-radius: 50%;
+    border: 0.5px solid skyblue;
+    padding: 5px;
+    font-size: 22px;
+  }
+}
