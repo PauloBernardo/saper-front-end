@@ -34,10 +34,10 @@ const MainRouter = () => {
   const auth = useContext(AuthContext)
   return (
     <Routes>
-      <Route element={<Outlet />} errorElement={<NotFound />}>
+      <Route path='/' element={<Outlet />} errorElement={<NotFound />}>
         {!auth.user ? (
           <>
-            <Route path='/' element={<PublicPage />} />
+            <Route path='' element={<PublicPage />} />
             <Route path='/login' element={<Login />} />
           </>
         ) : (
@@ -72,6 +72,7 @@ const MainRouter = () => {
           </Route>
         )}
       </Route>
+      <Route path="*" element={<NotFound />} errorElement={<NotFound />} />
     </Routes>
   )
 }

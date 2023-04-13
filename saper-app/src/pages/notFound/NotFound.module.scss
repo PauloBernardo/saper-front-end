@@ -1,0 +1,31 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+.container {
+  height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $dark;
+
+  .card {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+    border: 0;
+    h1 {
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+
+    .link {
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

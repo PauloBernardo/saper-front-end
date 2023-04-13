@@ -7,7 +7,7 @@ module.exports = {
         "^.+\\.(js|jsx)$": "babel-jest",
     },
     moduleNameMapper: {
-// https://jestjs.io/docs/webpack#mocking-css-modules
+    // https://jestjs.io/docs/webpack#mocking-css-modules
         "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     }
 };

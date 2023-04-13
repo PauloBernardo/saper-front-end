@@ -76,6 +76,11 @@ export default {
           }
         }
       },
+      notFound: {
+        title: "Página não encontrada :(",
+        message: "Não encontramos a página que você está procurando, clique no link abaixo para ser redirecionado!",
+        home: 'Voltar para home!'
+      },
       clients: {
         id: '#',
         title: 'Clientes',
